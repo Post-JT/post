@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Edad de 69 personas de Calle 11 al inicio de su condena, hoy y al egreso: el promedio pasa de 32,3 a 39,7 años.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calle 11: evolución de las edades, del ingreso al egreso">
+<meta property="og:description" content="El promedio pasa de 32,3 años al inicio de condena a 39,7 al egreso. Gráfico interactivo y tabla por rangos.">
+<title>Calle 11: evolución de las edades, del ingreso al egreso</title>
+<style>
+:root{--bg:#ffffff;--surface:#f4f3ef;--text:#0b0b0b;--text2:#52514e;--muted:#898781;--border:#e1e0d9;--strong:#c3c2b7;--grid:rgba(137,135,129,.2);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1a19;--surface:#262624;--text:#f0efec;--text2:#c3c2b7;--muted:#a09e96;--border:#2c2c2a;--strong:#383835;--grid:rgba(137,135,129,.25)}}
+:root[data-theme="dark"]{--bg:#1a1a19;--surface:#262624;--text:#f0efec;--text2:#c3c2b7;--muted:#a09e96;--border:#2c2c2a;--strong:#383835;--grid:rgba(137,135,129,.25)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+main{max-width:760px;margin:0 auto;padding:28px 18px 40px}
+h1{font-size:24px;font-weight:600;margin:0 0 6px;line-height:1.25}
+.sub{color:var(--text2);font-size:14px;margin:0 0 22px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.card{background:var(--surface);border-radius:10px;padding:14px 16px}
+.card .l{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.card .v{font-size:26px;font-weight:600}
+.card .m{font-size:12px;color:var(--muted)}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.chart{position:relative;width:100%;height:320px}
+.note{font-size:12px;color:var(--muted);margin:8px 0 24px}
+.wrap{overflow-x:auto}
+table{width:100%;min-width:520px;border-collapse:collapse;font-size:13px}
+th{font-weight:500;color:var(--text2);padding:6px 8px}
+td{padding:7px 8px;text-align:center;border-bottom:1px solid var(--border)}
+td:first-child{text-align:left;color:var(--text2)}
+.sub2 th{font-weight:400;font-size:12px;color:var(--muted);border-bottom:1px solid var(--strong)}
+.hl{font-weight:600}
+.read{margin:26px 0 0;padding:0;list-style:none}
+.read li{margin:0 0 8px;font-size:14px;color:var(--text2)}
+.read b{color:var(--text);font-weight:600}
+</style>
+</head>
+<body>
+<main>
+<h1>Calle 11: evolución de las edades, del ingreso al egreso</h1>
+<p class="sub">Edad de 69 personas al inicio de su condena, hoy (14-sep-2026) y al egreso. Datos agregados, sin información individual.</p>
+
+<div class="cards">
+  <div class="card"><div class="l"><span class="sw" style="background:#2a78d6"></span>Al inicio de condena</div><div class="v">32,3 años</div><div class="m">mediana 31,2</div></div>
+  <div class="card"><div class="l"><span class="sw" style="background:#eb6834"></span>Hoy</div><div class="v">37,9 años</div><div class="m">mediana 36,9</div></div>
+  <div class="card"><div class="l"><span class="sw" style="background:#1baf7a"></span>Al egreso</div><div class="v">39,7 años</div><div class="m">mediana 39,3</div></div>
+</div>
+
+<div class="chart"><canvas id="evo" role="img" aria-label="Tres curvas suavizadas, en porcentaje de personas por edad, al inicio de condena, hoy y al egreso. La curva se desplaza hacia edades mayores y se aplana.">Promedios: inicio 32,3; hoy 37,9; egreso 39,7 años.</canvas></div>
+<p class="note">La curva es una estimación suavizada; no cuenta personas exactas. Los triángulos marcan el promedio de cada momento. Los conteos reales están en la tabla.</p>
+
+<div class="wrap">
+<table>
+<thead>
+<tr>
+  <th rowspan="2" style="text-align:left;border-bottom:1px solid var(--strong);width:18%">Rango de edad</th>
+  <th colspan="2"><span class="sw" style="background:#2a78d6"></span> Inicio de condena</th>
+  <th colspan="2"><span class="sw" style="background:#eb6834"></span> Hoy</th>
+  <th colspan="2"><span class="sw" style="background:#1baf7a"></span> Egreso</th>
+</tr>
+<tr class="sub2"><th>Personas</th><th>%</th><th>Personas</th><th>%</th><th>Personas</th><th>%</th></tr>
+</thead>
+<tbody id="tb"></tbody>
+</table>
+</div>
+<p class="note">Edad en años cumplidos, n = 69. Los porcentajes pueden no sumar 100 por redondeo. Negrita: tramo más numeroso de cada columna.</p>
+
+<ul class="read">
+  <li><b>Entran jóvenes, salen más maduros.</b> La distribución se corre unos 7 años a la derecha entre el inicio de condena y el egreso.</li>
+  <li><b>Menores de 30 años:</b> 39% al inicio, 22% hoy y 12% al egreso.</li>
+  <li><b>45 años o más:</b> 6% al inicio, 25% hoy y 29% al egreso.</li>
+  <li><b>Condenas largas:</b> la mediana de la condena total es de 6,8 años; a hoy se lleva cumplida una mediana de 4,8 y quedan 1,4.</li>
+</ul>
+<p class="note">Fuente: base de participantes de Fundación Invictus, corte 14-sep-2026. Se consideran las personas con ubicación actual en Calle 11 que tienen fecha de nacimiento, de inicio de condena y de egreso efectivo (incluye reducción de condena cuando existe).</p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+var N=69;
+var labs=['20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64'];
+var cnt={ini:[15,12,20,7,11,3,1,0,0],hoy:[2,13,18,11,8,12,2,2,1],fin:[1,7,15,14,12,11,4,3,2]};
+var mx={};for(var k in cnt)mx[k]=Math.max.apply(null,cnt[k]);
+var tb=document.getElementById('tb');
+labs.forEach(function(l,i){
+  var h='<tr><td>'+l+'</td>';
+  ['ini','hoy','fin'].forEach(function(k){var c=cnt[k][i],p=Math.round(c/N*100),w=c===mx[k]?' class="hl"':'';
+    h+='<td'+w+'>'+c+'</td><td'+w+'>'+p+'%</td>';});
+  tb.insertAdjacentHTML('beforeend',h+'</tr>');
+});
+var xs=[];for(var a=18;a<=70;a++)xs.push(a);
+var raw={ini:[0.1,0.2,0.39,0.66,1.03,1.45,1.88,2.25,2.52,2.66,2.72,2.76,2.85,3.01,3.22,3.41,3.48,3.39,3.13,2.78,2.43,2.17,2.03,2.01,2.05,2.07,2.0,1.82,1.56,1.26,0.99,0.8,0.69,0.63,0.59,0.54,0.46,0.36,0.25,0.16,0.09,0.04,0.02,0.01,0,0,0,0,0,0,0,0,0,0,0,0],
+hoy:[0.01,0.02,0.04,0.08,0.14,0.24,0.38,0.56,0.78,1.04,1.33,1.64,1.95,2.25,2.52,2.73,2.89,2.99,3.03,3.02,2.94,2.81,2.65,2.48,2.33,2.22,2.16,2.15,2.18,2.22,2.22,2.16,2.01,1.8,1.55,1.29,1.06,0.86,0.72,0.61,0.53,0.46,0.39,0.34,0.28,0.24,0.2,0.16,0.12,0.09,0.06,0.03,0.02,0.01,0,0],
+fin:[0,0,0.01,0.03,0.06,0.11,0.2,0.33,0.51,0.73,0.98,1.25,1.53,1.81,2.08,2.31,2.5,2.64,2.72,2.77,2.78,2.78,2.76,2.73,2.68,2.59,2.47,2.33,2.19,2.08,2.01,1.99,1.98,1.95,1.86,1.7,1.48,1.24,1,0.82,0.69,0.61,0.57,0.55,0.52,0.48,0.42,0.35,0.28,0.2,0.14,0.08,0.05,0.03,0.01,0.01]};
+function pct(k){return raw[k].slice(3).map(function(v){return v/N*100;});}
+var col={ini:'#2a78d6',hoy:'#eb6834',fin:'#1baf7a'};
+var dash={ini:[],hoy:[6,4],fin:[2,3]};
+var muted='#898781';
+var means=[['ini',32.3],['hoy',37.9],['fin',39.7]];
+var mk={id:'mk',afterDatasetsDraw:function(c){var ctx=c.ctx,x=c.scales.x,y=c.scales.y;
+  means.forEach(function(m){var px=x.getPixelForValue(m[1]-18);ctx.save();ctx.fillStyle=col[m[0]];ctx.beginPath();
+  ctx.moveTo(px,y.bottom-1);ctx.lineTo(px-6,y.bottom-11);ctx.lineTo(px+6,y.bottom-11);ctx.closePath();ctx.fill();ctx.restore();});}};
+function f1(v){return v.toFixed(1).replace('.',',');}
+var grid=getComputedStyle(document.documentElement).getPropertyValue('--grid')||'rgba(137,135,129,.2)';
+new Chart(document.getElementById('evo'),{
+  type:'line',
+  data:{labels:xs,datasets:[['ini','Inicio de condena'],['hoy','Hoy'],['fin','Egreso']].map(function(p){var k=p[0];return {label:p[1],data:pct(k),borderColor:col[k],backgroundColor:col[k]+'1a',fill:true,borderWidth:2,borderDash:dash[k],pointRadius:0,pointHoverRadius:4,tension:0.4};})},
+  options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{callbacks:{title:function(i){return 'Edad '+i[0].label+' años';},label:function(i){return i.dataset.label+': ~'+f1(i.raw)+'% de las personas (estimado)';}}}},
+    scales:{x:{grid:{display:false},ticks:{color:muted,autoSkip:false,maxRotation:0,callback:function(v,i){return xs[i]%5===0?xs[i]:'';}},title:{display:true,text:'Edad (años)',color:muted}},
+      y:{beginAtZero:true,grid:{color:'rgba(137,135,129,0.22)'},ticks:{color:muted,stepSize:1,callback:function(v){return v+'%';}},title:{display:true,text:'% de personas por cada año de edad (suavizado)',color:muted}}}},
+  plugins:[mk]
+});
+</script>
+</body>
+</html>
